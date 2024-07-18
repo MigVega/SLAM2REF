@@ -1,7 +1,9 @@
 
 # SLAM2REF
 [Link to the Paper](https://link.springer.com/article/10.1007/s41693-024-00126-w).
+
 [Link to Data](https://mediatum.ub.tum.de/1743877).
+
 Code will be released by the end of july.
 
 ## License
@@ -11,7 +13,7 @@ For academic usage, the code is released under the [GPLv3 license](https://www.g
 If you used this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
 
 **Paper & Data:** 
-The data consist of the BIM Model of ConSLAM and Ground Truth poses.
+The data consist of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM) and Ground Truth poses.
 
 ```bibtex
 @article{SLAM2REF:vega2024:paper,
@@ -25,7 +27,9 @@ The data consist of the BIM Model of ConSLAM and Ground Truth poses.
 	number       = 2,
 	pages        = 13,
 	doi          = {10.1007/s41693-024-00126-w},
-	url          = {https://github.com/MigVega/SLAM2REF},
+	url          = {https://link.springer.com/article/10.1007/s41693-024-00126-w},
+	notes        = {link to code: https://github.com/MigVega/SLAM2REF/. Link to data: https://mediatum.ub.tum.de/1743877},
+	keywords     = {LiDAR; Multi-Session SLAM; Pose-Graph Optimization; Loop Closure; Long-term Mapping; Change Detection; {BIM} Update; {3D} Indoor Localization and Mapping},
 	language     = {en}
 }
 
