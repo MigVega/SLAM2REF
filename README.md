@@ -9,6 +9,7 @@ For academic usage, the code is released under the [GPLv3 license](https://www.g
 
 ## Citation:
 If you used this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
+
 **Paper:**
 ```bibtex
 @article{SLAM2REF:vega2024:paper,
@@ -43,4 +44,4 @@ If you used this work or our data in your research, please include the following
     language={en} 
 } 
 ```
-**Code:** TO add
+**Code:** To be added.
