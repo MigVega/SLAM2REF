@@ -1,0 +1,22 @@
+ <!-- MV: This file is not used any more, it is leaved here as well with the RosParamServer class in case that an integration with ROS is wanted in a future extension-->
+<launch>
+
+    <!-- <arg name="project" default="slam2ref"/> -->
+
+    <!-- Parameters -->
+    <rosparam file="$(find slam2ref)/config/params.yaml" command="load" />
+    <!-- <rosparam file="/home/mlegion/ws/09_bim_slam_mod_ltMapper/src/slam2ref/config/params.yaml" command="load" /> -->
+
+    <!-- main -->
+    <!-- <node pkg="$(arg project)" type="$(arg project)_main_2Dtest" name="$(arg project)_main_2Dtest" output="screen" respawn="true"/> -->
+    
+        <!-- MV: OLD -->
+    <!-- <node pkg="$(arg project)" type="$(arg project)_bim_slam" name="$(arg project)_bim_slam" output="screen" respawn="false"/> -->
+        <!-- MV: NEW LINE-->
+    <node pkg="slam2ref" type="bim_slam_bim_slam" name="bim_slam_bim_slam" output="screen" respawn="false"/>
+
+
+    <!--- TODO - Run Rviz and allow visualisation of the optimization -->
+
+
+</launch>

@@ -1,0 +1,8 @@
+/logs/
+/build/
+/tools/python/.idea/
+/data/
+/.idea/
+/cmake-build-debug/
+/cmake-build-release/
+/cmake-build-release-event-trace/

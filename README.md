@@ -1,18 +1,44 @@
+# SLAM2REF: Advancing Long-Term Mapping with 3D LiDAR and Reference Map Integration for Precise 6-DoF Trajectory Estimation and Map Extension
 
-# SLAM2REF
-[Link to the Paper](https://link.springer.com/article/10.1007/s41693-024-00126-w).
+#### [[Paper](https://link.springer.com/article/10.1007/s41693-024-001)] [[Data](https://mediatum.ub.tum.de/1743877)]
 
-[Link to Data](https://mediatum.ub.tum.de/1743877).
 
-Code will be released by the end of july.
+## What is SLAM2REF?
+Pose-graph Multi-Session Anchoring with a Ground Truth map or with another LiDAR-based SLAM session.
+- This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h).
+- Moreover we implement a novel Indoor Scan Context Descriptor for fast place recognition.
+- Also a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles.
+- SLAM2REF additionally allows the retrieval of 6-DoF poses with accuracy of up to 3 cm given an accurate TLS point cloud  as a reference map (this map should be accurate at least regarding the position of permanent elements such as walls and columns).
+    
+    
+## How to run the code?
+
+For Building add this flag to use only 5 threads `-j 5` otherwise the project might exit before building.
+
+- After successfully building the project, all the input paths (to the query and central sessions, for example) and parameters are given in the file `config/params.yaml`.
+
+- Then simply running the code (with the play bottom) should start the execution.
+    in the console, the following should be visible:
+  
+    ```bash
+    [ INFO] ----> Slam2ref starts.
+    ```
+
+- Once the program has successfully finalized, you should see:
+  
+    ```bash
+    [ INFO] ----> Slam2ref done.
+    ```
 
 ## License
-For academic usage, the code is released under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html). For any commercial purpose, please contact the author.
+For academic usage, the code is released under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html). 
+
+For any commercial purpose, please contact the author.
 
 ## Citation:
-If you used this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
+If you use this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
 
-**Paper & Data:** 
+**Paper & Data:**
 The data consist of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM) and Ground Truth poses.
 
 ```bibtex
@@ -48,3 +74,6 @@ The data consist of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM
 }
 ```
 **Code:** To be added.
+
+## Acknowledgements
+This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam)(2022) whose author is Giseop Kim.

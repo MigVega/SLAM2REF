@@ -1,0 +1,143 @@
+slam2ref:
+  # TEST #1: BIM central, DLIO query
+  sessions_dir: "/home/mlegion/ws/07_sc_a_loam/src/data/01.Results_SessionData/03.ConSLAM/00.B_Test3_Labeled_scans_in_ROI/" # end with /
+  central_sess_name:   "BIM_session_scans_296-422" #"BIM_original_scan_also_ceiling" # #"TLS_session_scans_every_2m" #"TLS_session"
+  query_sess_name: "ConSLAM_All_scans"
+  save_directory: "/home/mlegion/ws/07_sc_a_loam/src/data/08.SLAM2REF_Results_testG_BIM/" # end with "/" slam2ref_WithoutRS_loops
+  new_folder_test_name: "TestG_29_Open_Source/"
+
+  do_not_edit_central_session: true    # With true (slam2ref) we will not edit the central session -> taking it as a ground truth, not as a session to be optimized. False -> original Lt-SLAM -> optimizing both sessions
+
+  use_original_lt_slam_code: false     # MV if true: some flags that come later (with MV) will not have any effect in the code -> the original Lt-SLAM will be used
+
+  ## Noise Model ----------------------------------------------
+  #  mEstimator: "Huber"                 # original "Cauchy" # or (else) "Huber"
+  #  robust_noise_model_value: 0.00005   # original 0.5; 0.00005 worked very good for the 3 scans test
+  ## Original LT-slam
+  mEstimator: "Cauchy"                 # original "Cauchy" # or (else) "Huber"
+  robust_noise_model_value: 0.5        # original 0.5; 0.00005 worked very good for the 3 scans test
+
+
+  ## Loop Closure  =============================================
+
+  ### SC Loops ----------------------------------------------
+  using_MV_modified_version_of_ICP: true  # to detect SC loops
+  #  MV_ICP_type_in_KNN: 3 # Maybe I could add this in the future, however, the function is virtual global (not relative as for SC), so it is unique for this
+  MV_ICP_type_in_SC: 4
+    #  v1: Without yaw angle,
+    #  v2: with yaw angle,
+    #  v3: with yaw angle and Robust Open3D GICP # Here a good loopFitnessScoreThreshold_Open3D is 0.7
+    #  v4: first align only yaw angle (as well as translation) and then finely correct pitch and roll (10 iterations) -> improved fitness calculation max_dist 0.1
+  # here a good loopFitnessScoreThreshold_Open3D = 0.3, larger is very challenging
+
+
+  # MV the following should be proportional to the kICPFilterSize,
+  # maybe kICPFilterSize/2 -> otherwise, bad registered scans will pass as LC -> since there are more points, the fitness score tends to be always lower, therefore the threshold to accept the registration should be also low
+  kICPFilterSize: 0.05                    # use in Session.cpp to downsample the point cloud of the joined KNN key frames (from central session) before doing ICP with the scan from the query session in functions loopFindNearKeyframesGeneral
+  # before kICPFilterSize = 0.04  # -> with this, I get the warning that the leaf size is too small, while working with the real scans (without filtering by radius of 10 m)
+  loopFitnessScoreThreshold: 0.4         # before 0.3 # 0.15 # MV: icp threshold, the lower, the better the match
+
+  #The next thr is very critical while changing from TLS to BIM as a ref map
+  loopFitnessScoreThreshold_Open3D: 0.35   # 0.25 BIM; 0.7 TLS # # MV: the higher, the better the match
+  historyKeyframeSearchNum: 10    # MV: number of history key frames will be fused into a submap for loop closure the real number of scans will be this +2 (because of the -+)
+
+  NNKeyframes_for_submap: 5       # MV: the real number of scans will be this +2 (because of -+)
+
+  kNumSCLoopsUpperBound: 200      # if you use a large enough number, use all the detected loops # MV: this is the maximum number of scloops_to_be_added
+
+  max_dist_thr_original_SC_ICP: 0.5       # original 10. Note: this variable is only used if using_MV_modified_version_of_ICP is false
+  max_dist_thr_SC_ICP: 1
+  max_dist_thr_SC_ICP_2: 0.1
+
+  ### RS Loops --------------------------------
+  MV_skipp_RS_loopDetection: true
+  kNumRSLoopsUpperBound: 200      # if you use an enough large number, use all the detected loops
+
+
+  ### KNN Loops ----------------------------------------------
+  using_MV_performing_KNN_loops: false           # Best true, if false: this will be skipped
+  KNN_ICP_version: 4                            # 3 (now yaw restricted) or 4 for yaw-only correction
+  max_dist_thr_KNN_ICP: 2                       # 20 cm -> (with 0.5 cm none passed because of the downscaling <kICPFilterSize> perhaps!)
+  max_dist_thr_KNN_ICP_2: 0.1                   # 0.5 -> 10 cm -> (with 0.5 cm none passed because of the downscaling <kICPFilterSize> perhaps!)
+  loopFitnessScoreThreshold_Open3D_KNN: 0.4     # 0.7 worked good with 0.5 in max_dist_thr_KNN_ICP_2 # with 0.9 the final map gets worst  #This has to be very high, since is for the KNN_loops # be carefull the thr here is not the same as in the previous line since we used here a different max_dist_thr
+  loopFitnessScoreThreshold_Open3D_KNN_2: 0.25   # 0.4 is a good value considering the 2nd thr of 0.5 (50 cm)
+  noise_model_for_best_KNN_loops: "odom" # or "robust" # Be carefull this change IMPROVEs a lot the results, but the correspondences have to be correct. given the Thr for ICP ( max dist 0.05 and > 30% inliers (FS)) "odom" works very well at least with simulated scans from TLS point clouds
+  noise_model_for_second_best_KNN_loops: "robust" # or "robust"
+
+
+  ### Final ICP  ----------------------------------------------
+  using_MV_performing_final_ICP:  true # This works -> however, it is very time-consuming since it perform ICP with every scan and the nearest simulated scans from the reference map
+
+  max_dist_thr_Final_ICP: 0.2       # 0.45 -> 45cm; # 0.2 for BIM -> I need to trust more in the odometry
+  max_dist_thr_Final_ICP_2: 0.05      # 0.05 -> 5 cm -> finer registration
+  max_dist_thr_Final_ICP_3: 0.01      # 0.01 -> 1 cm -> target accuracy
+  # 1cm thrs (in range): 1: Very good, 2: good
+  loopFitnessScoreThreshold_Final_ICP: 0.3  # This has to be very high, since is for the KNN_loops # be carefull the thr here is not the same as in the previous line since we used here a different max_dist_thr
+  loopFitnessScoreThreshold_Final_ICP_2: 0.15  # 0.2 is too low -> bad alignments would be passed as correct # if at least 20% of the points are in 1 cm it is consider almost good scan
+  ## Reference PC -> Only used for final ICP
+  ## from BIM
+  #  path_to_target_pc_for_final_ICP: "/home/mlegion/ws/07_sc_a_loam/src/data/BIM_pc.pcd" ## Small CMS model
+  #  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/13.BIM2SCD/v2_private_github/BIM2SCD/Ifc2SegmentedPc/Outputs_pcd/V9_All_merged_ROI_0_01.ply" # Very time-consuming -> 40 min for 380 scans in query session
+  #  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/13.BIM2SCD/v2_private_github/BIM2SCD/Ifc2SegmentedPc/Outputs_pcd/V9_All_merged_ROI_0_05_target_BIM.ply" #Less dense target PC from BIM -> With this the thrs of Final ICP have to be reduced drastically -> otherwise the method will not save any point cloud as good or very good registered
+  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/13.BIM2SCD/v2_private_github/BIM2SCD/Ifc2SegmentedPc/Outputs_pcd/V9_All_merged_ROI_0_01_V4_cut_no_color.ply" #Cut (more only ROI) and without color.
+
+  ## from TLS
+  #  path_to_target_pc_for_final_ICP: "/home/mlegion/01.Datasets/03.ConSLAM/01.Sequences/Sequence2/04.TLS_point_cloud/groundtruth_scan_ORIGINAL_v4_aligned_with_BIM_NoColor_cut.ply"
+  #  path_to_target_pc_for_final_ICP: "/home/mlegion/01.Datasets/03.ConSLAM/01.Sequences/Sequence2/04.TLS_point_cloud/groundtruth_scan_ORIGINAL_v5_1cm_aligned_with_BIM_NoColor_cut.ply"
+  start_group_index_Final_ICP: 0                  # ONLY for debugging -> otherwise it should be 0# 65 to analyze problematic section in seq 2
+
+  range_distance_for_second_fitness: 0.3          # (EXPERIMENTAL)s only points closer to this distance to the target pc, will be used to calculated the second fitness score # 30 cm considering the max wall thickness
+  loopFitnessScoreThreshold_Final_ICP_3cm: 0.65   # 90% TLS/ 70% BIM: of the points should be inside the 30 cm range to be considering a very good registration
+  loopFitnessScoreThreshold_Final_ICP_3cm_2: 0.55  # 88% TLS/ 60% BIM: of the points should be inside the 30 cm range to be considering as a good registration
+  loopRmseThreshold_Final_ICP: 0.04               # The lower, the better: <5 cm Only the best scans
+  loopRmseThreshold_Final_ICP_2: 0.08             # <10 cm is considered good
+
+
+  ## GENERAL (NOT THAT RELEVANT) ----------------------------------------------
+  numberOfCores: 16                        # currently hard-coded ONLY in the utility.cpp (the rest of the code uses this value) MV: Todo avoid make it hardcoded (not allow more than 8 cores)
+
+  load_only_scans_and_kitti_files: true    # if true, instead of loading the g2o, SCD and scans, only the poses in kitti format (from "/optimized_poses.txt") and the scans are required, the SCD are calculated from the scans
+  load_yaml_without_ros: true
+
+  write_input_merged_query_session_as_point_cloud: false
+  write_merged_query_point_cloud: true
+  write_merged_central_point_cloud: false # if true:
+  #a merged map with the scan of the Central/BIM session will be created -> better avoid if there are many scans
+
+
+  save_all_scans_of_KNN_loops: true
+  save_all_source_and_target_scans_in_final_ICP_: false
+  save_registered_source_scans_in_final_ICP: true
+
+
+  print_config_param: true
+  print_ISAM_config_param: false
+  print_SC_ICP_test_values_for_each_iteration: true
+
+  is_display_debug_msgs: false
+  display_debug_msgs_RS_loops: false
+
+  ## The following are only used if using_MV_modified_version_of_ICP is false -> the original Lt-slam was using this wrong transformation
+  use_original_WRONG_ICP_SC_result: false # The Original version of LT-SLAM gives the wrong result transformation into the optimization problem
+  use_original_WRONG_ICP_RS_result: false # The Original version of LT-SLAM gives the wrong result transformation into the optimization problem
+  use_original_WRONG_ICP_KNN_result: false # this was added only for testing -> Indeed activating this gives wrong results -> the entire trajectory will be move upward
+
+
+scan_context:
+  filter_scan_pc_with_radius: true
+  filter_scan_pc_with_vertical_projection: false # While it was not a bad idea, it makes the registration success even in wrong cases ->, so it is not good feature -> the final results are worst
+  SC_DIST_THRES: 0.7                # TLS -> 0.5. BIM -> 0.7 # reducing this (from 0.5) can bring problems, since it is best to have many scans pass the min_dist to check them later with ICP# With 0.6 it finds wrong correspondences with the entire real seq # with 0.3 it only find one (but correct) correspondence
+  PC_MAX_RADIUS: 10                 # TODO add parameter in the print of params
+  # Very important flag
+  use_indoor_scan_context: true   # MV: introduced indoor scan context! -> if false -> the original scan context will be used -> not suitable for indoor scans with changes in roll and pitch
+  INDOOR_SC_Z_COUNTER_THRES: 40     # 40 seems to work well in the initial experiments with a couple of real and simulated indoor scans
+  INDOOR_SC_VERSION: 3              # MV version of the indoor scan context descriptor to be used -> integer from 1 to 4
+  #		- v1: simply the number of vertical points
+  #		- v2: normalizing each ring of the descriptor -> this is to give same priority to vertical elements (e.g. walls) that are far away from the sensor,
+  #		- v3: simply 1 for vertical elements, and 0 else where.
+  #		- v4: giving higher values to vertical elements that are closer to the origin -> values by ring -> this makes sense since the geometry of the elements that are closer to the origin is better represented in the descriptor -> the other could be noise or there is a lot of range where a (small) difference in the yaw angle could create similar element.
+  SEARCH_RATIO: 0.1 # original 0.1 # This determines the percentage (1 -> 100% -> 360 deg) of
+  # how many possible yaw angles will be used for comparison to calculate the min distance between SCDs
+  NUM_CANDIDATES_FROM_TREE: 100 # with 100 it works!
+  PC_NUM_RING: 20      # original 20
+  PC_NUM_SECTOR: 60    # original 60
