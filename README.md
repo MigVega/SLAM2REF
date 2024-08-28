@@ -5,15 +5,16 @@
 
 ## What is SLAM2REF?
 Pose-graph Multi-Session Anchoring with a Ground Truth map or with another LiDAR-based SLAM session.
-- This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h).
-- Moreover we implement a novel Indoor Scan Context Descriptor for fast place recognition.
-- Also a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles.
-- SLAM2REF additionally allows the retrieval of 6-DoF poses with accuracy of up to 3 cm given an accurate TLS point cloud  as a reference map (this map should be accurate at least regarding the position of permanent elements such as walls and columns).
-    
+- This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent.
+- Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition.
+- Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles.
+- SLAM2REF additionally allows the retrieval of 6-DoF poses with an accuracy of up to 3 cm given an accurate TLS point cloud as a reference map (this map should be accurate, at least regarding the position of permanent elements such as walls and columns).
+
+
     
 ## How to run the code?
 
-For Building add this flag to use only 5 threads `-j 5` otherwise the project might exit before building.
+For Building, add this flag to use only five threads `-j 5`; otherwise, the project might exit before building.
 
 - After successfully building the project, all the input paths (to the query and central sessions, for example) and parameters are given in the file `config/params.yaml`.
 
@@ -21,13 +22,13 @@ For Building add this flag to use only 5 threads `-j 5` otherwise the project mi
     in the console, the following should be visible:
   
     ```bash
-    [ INFO] ----> Slam2ref starts.
+    ----> Slam2ref starts.
     ```
 
-- Once the program has successfully finalized, you should see:
+- Once the program has been successfully finalized, you should see the following:
   
     ```bash
-    [ INFO] ----> Slam2ref done.
+    ----> Slam2ref done.
     ```
 
 ## License
@@ -39,9 +40,9 @@ For any commercial purpose, please contact the author.
 If you use this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
 
 **Paper & Data:**
-The data consist of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM) and Ground Truth poses.
+The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM) and Ground Truth poses.
 
-```bibtex
+```BibTeX
 @article{SLAM2REF:vega2024:paper,
 	title        = {{SLAM2REF}: advancing long-term mapping with {3D} {LiDAR} and reference map integration for precise 6-{DoF} trajectory estimation and map extension},
 	author       = {Vega-Torres, Miguel A. and Braun, Alexander and Borrmann, André},
@@ -76,4 +77,4 @@ The data consist of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM
 **Code:** To be added.
 
 ## Acknowledgements
-This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam)(2022) whose author is Giseop Kim.
+This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam)(2022), whose author is Giseop Kim.
