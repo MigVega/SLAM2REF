@@ -4,7 +4,7 @@
 
 
 ## What is SLAM2REF?
-Pose-graph Multi-Session Anchoring with a Ground Truth map or with another LiDAR-based SLAM session.
+Using Pose-graph Multi-Session Anchoring with a reference map or with another session, this project allows the alignment and correction of LiDAR-based SLAM sessions, allowing precise 6-DoF pose retrieval and map extension.
 - This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent.
 - Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition.
 - Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles.
