@@ -1,14 +1,14 @@
 slam2ref:
   # TEST #1: BIM central, DLIO query
-  sessions_dir: "/home/mlegion/Repos/01_slam2ref/data/0.Inputs/0.SessionData/0.ConSLAM/00.TestA01_scans_in_ROI/" # end with /
+  sessions_dir: "/home/mlegion/Repos/00.SLAM2REF/data/inputs/00.SessionData/00.ConSLAM/00.TestA01_scans_in_BIM_ROI/" # end with /
   central_sess_name:   "BIM_session_scans_296-422" #"BIM_original_scan_also_ceiling" # #"TLS_session_scans_every_2m" #"TLS_session"
-  query_sess_name: "ConSLAM_All_scans"
-  save_directory: "/home/mlegion/Repos/01_slam2ref/data/02.Outputs/00.Test_with_BIM/" # end with "/"
+  query_sess_name: "DLIO_real_world_SLAM_session"
+  save_directory: "/home/mlegion/Repos/00.SLAM2REF/data/outputs/00.TestA01_scans_in_BIM_ROI/" # end with "/"
   new_folder_test_name: "TestA01/"
 
   ## Reference PC -> Only used for final ICP
   ## from BIM or TLS
-  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/01_slam2ref/data/0.Inputs/1.Ref_map_pc/path/to/your/ref/point-cloud-map.ply" #save it in ply binary format, in that way you save space ;).
+  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/00.SLAM2REF/data/inputs/01.Ref_maps_pcs/ConSLAM_BIM_PC_V9_All_merged_ROI_Density_0_01_m_No_color.ply" #path/to/your/ref/point-cloud-map.ply" save it in ply binary format, in that way you save space ;).
 
   do_not_edit_central_session: true    # With true (slam2ref) we will not edit the central session -> taking it as a ground truth, not as a session to be optimized. False -> original Lt-SLAM -> optimizing both sessions
 
