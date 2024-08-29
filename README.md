@@ -1,6 +1,6 @@
 # SLAM2REF: Advancing Long-Term Mapping with 3D LiDAR and Reference Map Integration for Precise 6-DoF Trajectory Estimation and Map Extension
 
-#### [[Paper](https://link.springer.com/article/10.1007/s41693-024-001)] [[Data](https://mediatum.ub.tum.de/1743877)]
+#### [[ArXiv Paper (better images)](https://arxiv.org/abs/2408.15948)] [[Paper](https://link.springer.com/article/10.1007/s41693-024-001)] [[Data](https://mediatum.ub.tum.de/1743877)]
 
 
 ## What is SLAM2REF?
