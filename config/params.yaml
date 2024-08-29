@@ -70,7 +70,7 @@ slam2ref:
 
 
   ### Final ICP  ----------------------------------------------
-  using_MV_performing_final_ICP:  true # This works -> however, it is very time-consuming since it perform ICP with every scan and the nearest simulated scans from the reference map
+  using_MV_performing_final_ICP:  false # This works -> however, it is very time-consuming since it perform ICP with every scan and the nearest simulated scans from the reference map
 
   max_dist_thr_Final_ICP: 0.2       # 0.45 -> 45cm; # 0.2 for BIM -> I need to trust more in the odometry
   max_dist_thr_Final_ICP_2: 0.05      # 0.05 -> 5 cm -> finer registration

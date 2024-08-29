@@ -50,21 +50,6 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
   </a>
 </p>
 
-[//]: # ([![arxiv]&#40;https://img.shields.io/badge/arXiv-2408.15948-%23B31C1B?style=flat&#41;]&#40;https://arxiv.org/abs/2408.15948&#41;)
-
-[//]: # ([![YouTube]&#40;https://img.shields.io/youtube/views/d_-ZYJhgGIk?label=YouTube&style=flat&#41;]&#40;https://youtu.be/5WgPRRijI4Y&#41;)
-
-[//]: # (![C++]&#40;https://img.shields.io/badge/C++-Solutions-blue.svg?style=flat&logo=c%2B%2B&#41;)
-
-[//]: # (![License]&#40;https://img.shields.io/github/license/MigVega/SLAM2REF&#41;)
-
-[//]: # ([![GitHub Repo stars]&#40;https://img.shields.io/github/stars/MigVega/SLAM2REF&#41;]&#40;https://github.com/MigVega/SLAM2REF&#41;)
-
-[//]: # (<a href="https://github.com/MigVega/SLAM2REF"><img src="https://img.shields.io/github/stars/MigVega/SLAM2REF.svg?style=flat&logo=github&colorB=deeppink&label=stars"></a>)
-
-[//]: # ([![GitHub forks]&#40;https://img.shields.io/github/forks/MigVega/SLAM2REF&#41;]&#40;https://github.com/MigVega/SLAM2REF&#41;)
-
-[//]: # ([![GitHub issues]&#40;https://img.shields.io/github/issues/MigVega/SLAM2REF&#41;]&#40;https://github.com/MigVega/SLAM2REF&#41;)
 <!-- TO ADD -->
 <!-- ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/rayguan97/crossloc3d/.github%2Fworkflows%2Fpython-package-conda.yml)-->
 <!-- ![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dataset/slam2ref)(https://paperswithcode.com/sota)-->
@@ -111,13 +96,20 @@ The following image presents a very brief overview of how the method works.
     ```bash
         ----> Slam2ref starts.
     ```
- - **Optional**: To avoid long execution (around 22 min), you can avoid performing the _final ICP_ step. 
-    - To do so go to `config/params.yaml` and change: `using_MV_performing_final_ICP:`  to `false` instead of `true`, however, skipping the final ICP step means the poses will not be refined to centimeter accuracy.
+- **Optional:** The **final ICP** step can significantly extend execution time (approximately 22 minutes). By default, it is deactivated to speed up the process. However, if you wish to refine the poses to centimeter accuracy, you can enable this step in a subsequent run.
+    - To activate the final ICP step, open the `config/params.yaml` file and set the `using_MV_performing_final_ICP` parameter to `true`:
 
+      ```yaml
+      using_MV_performing_final_ICP: true
+      ```
 
 ### 6. Monitoring Execution and Output
-- Once the program has been successfully finalized (After approximately 22 minutes with the final ICP step), you should see the following:
-  
+
+- The program's execution time varies depending on whether the **final ICP** step is included:
+    - **Without final ICP:** Approximately less than 1 minute.
+    - **With final ICP:** Approximately 22 minutes.
+
+- Once the program has completed, you will see the following message in the console:
     ```bash
     ----> Slam2ref done.
     ```
