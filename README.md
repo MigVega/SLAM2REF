@@ -50,6 +50,12 @@ For Building, add this flag to use only five threads `-j 5`; otherwise, the proj
     ----> Slam2ref done.
     ```
 
+
+## Stay Up-to-Date / Support
+Start the repo!
+<p align="center"><img src="doc/imgs/github_start_only.gif" alt="SLAM2REF Github - how to star the repo" width="50%" /></p>
+
+
 ## License
 For academic usage, the code is released under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html). 
 
