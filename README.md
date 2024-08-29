@@ -9,6 +9,19 @@
 #### [[ArXiv Paper (better images)](https://arxiv.org/abs/2408.15948)] [[Paper](https://link.springer.com/article/10.1007/s41693-024-001)] [[Data](https://mediatum.ub.tum.de/1743877)]
 
 
+[![arxiv](https://img.shields.io/badge/arXiv-2408.15948-%23B31C1B?style=flat)](https://arxiv.org/abs/2408.15948)
+[![YouTube](https://img.shields.io/youtube/views/d_-ZYJhgGIk?label=YouTube&style=flat)](https://youtu.be/5WgPRRijI4Y)
+![C++](https://img.shields.io/badge/C++-Solutions-blue.svg?style=flat&logo=c%2B%2B)
+![License](https://img.shields.io/github/license/MigVega/SLAM2REF)
+[![GitHub Repo stars](https://img.shields.io/github/stars/MigVega/SLAM2REF)](https://github.com/MigVega/SLAM2REF)
+[![GitHub forks](https://img.shields.io/github/forks/MigVega/SLAM2REF)](https://github.com/MigVega/SLAM2REF)
+[![GitHub issues](https://img.shields.io/github/issues/MigVega/SLAM2REF)](https://github.com/MigVega/SLAM2REF)
+<!-- TO ADD -->
+<!-- ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/rayguan97/crossloc3d/.github%2Fworkflows%2Fpython-package-conda.yml)-->
+<!-- ![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dataset/slam2ref)(https://paperswithcode.com/sota)-->
+<!-- ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)) -->
+
+
 ## What is SLAM2REF?
 Using Pose-graph Multi-Session Anchoring with a reference map or with another session, this project enables the alignment and correction of LiDAR-based SLAM sessions, allowing precise 6-DoF pose retrieval and map extension.
 - This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent. This is also an extension of the [BIM-SLAM](http://www.iaarc.org/publications/2023_proceedings_of_the_40th_isarc_chennai_india/bim_slam-integrating_bim_models_in_multi_session_slam_for_lifelong_mapping_using_3d_lidar.html) project, for which a [video](https://youtu.be/5WgPRRijI4Y) explanation is available.
