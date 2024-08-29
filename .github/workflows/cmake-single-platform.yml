@@ -27,8 +27,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake make gcc g++ git libboost-all-dev
 
-      - name: Install GTSAM
-        run: git clone --single-branch --branch develop https://github.com/borglab/gtsam.git && mkdir build && cd build && cmake .. && make install
+      - name: Install GTSAM from source
+        run: |
+          git clone --branch develop https://github.com/borglab/gtsam.git
+          cd gtsam
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          make -j$(nproc)
+          sudo make install
+
+#      - name: Install GTSAM
+#        run: git clone --single-branch --branch develop https://github.com/borglab/gtsam.git && mkdir build && cd build && cmake .. && make install
 
 #      - name: Install GTSAM from source
 #        run: |
