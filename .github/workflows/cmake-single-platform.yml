@@ -40,10 +40,16 @@ jobs:
           make -j$(nproc)
           sudo make install
 
+      - name: Install ISPC
+        run: |
+            wget https://github.com/ispc/ispc/releases/download/v1.16.1/ispc-v1.16.1-linux-x86_64.tar.gz
+            tar -xzf ispc-v1.16.1-linux-x86_64.tar.gz
+            sudo cp ispc-v1.16.1-linux-x86_64/bin/ispc /usr/local/bin/
+
       - name: Clone Open3D repository
         run: git clone https://github.com/isl-org/Open3D
 
-      - name: Install Open3D dependencies (Ubuntu)
+      - name: Install Open3D dependencies
         working-directory: Open3D
         run: util/install_deps_ubuntu.sh
 
@@ -52,8 +58,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          # Configure Open3D with Python bindings disabled
-          cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/open3d_install -DBUILD_PYTHON_MODULE=OFF
+          cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/open3d_install -DBUILD_PYTHON_MODULE=OFF -DISPC_EXECUTABLE=/usr/local/bin/ispc -Wno-dev
 
       - name: Build Open3D
         working-directory: Open3D/build
