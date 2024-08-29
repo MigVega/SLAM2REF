@@ -33,12 +33,6 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
   </a>
   <img src="https://img.shields.io/badge/C++-Solutions-blue.svg?style=flat&logo=c%2B%2B" alt="C++">
   <img src="https://img.shields.io/github/license/MigVega/SLAM2REF" alt="License">
-
-[//]: # (  <a href="https://github.com/MigVega/SLAM2REF">)
-
-[//]: # (    <img src="https://img.shields.io/github/stars/MigVega/SLAM2REF" alt="GitHub Repo stars">)
-
-[//]: # (  </a>)
   <a href="https://github.com/MigVega/SLAM2REF">
     <img src="https://img.shields.io/github/stars/MigVega/SLAM2REF.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="GitHub stars">
   </a>
@@ -50,6 +44,11 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
   </a>
 </p>
 
+[//]: # (  <a href="https://github.com/MigVega/SLAM2REF">)
+
+[//]: # (    <img src="https://img.shields.io/github/stars/MigVega/SLAM2REF" alt="GitHub Repo stars">)
+
+[//]: # (  </a>)
 <!-- TO ADD -->
 <!-- ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/rayguan97/crossloc3d/.github%2Fworkflows%2Fpython-package-conda.yml)-->
 <!-- ![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dataset/slam2ref)(https://paperswithcode.com/sota)-->
