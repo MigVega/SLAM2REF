@@ -11,7 +11,7 @@
 
 ## What is SLAM2REF?
 Using Pose-graph Multi-Session Anchoring with a reference map or with another session, this project enables the alignment and correction of LiDAR-based SLAM sessions, allowing precise 6-DoF pose retrieval and map extension.
-- This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent. This is also an extension of the [BIM-SLAM](http://www.iaarc.org/publications/2023_proceedings_of_the_40th_isarc_chennai_india/bim_slam-integrating_bim_models_in_multi_session_slam_for_lifelong_mapping_using_3d_lidar.html) project, for which a [video](https://youtu.be/5WgPRRijI4Y) explanation is available.
+- This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent. This is also an extension of the [BIM-SLAM](http://www.iaarc.org/publications/2023_proceedings_of_the_40th_isarc_chennai_india/bim_slam-integrating_bim_models_in_multi_session_slam_for_lifelong_mapping_using_3d_lidar.html) project, for which a [video](https://youtu.be/5WgPRRijI4Y) explanation is available.
 - Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition.
 - Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles.
 - SLAM2REF additionally allows the retrieval of 6-DoF poses with an accuracy of up to 3 cm given an accurate TLS point cloud as a reference map (this map should be accurate, at least regarding the position of permanent elements such as walls and columns).
@@ -24,7 +24,7 @@ For Building, add this flag to use only five threads `-j 5`; otherwise, the proj
 
 - After successfully building the project, all the input paths (to the query and central sessions, for example) and parameters are given in the file `config/params.yaml`.
 
-- Then simply running the code (with the play bottom) should start the execution.
+- Then, simply running the code (with the play bottom) should start the execution.
     in the console, the following should be visible:
   
     ```bash
@@ -42,7 +42,7 @@ For academic usage, the code is released under the [GPLv3 license](https://www.g
 
 For any commercial purpose, please contact the author.
 
-## Citation:
+## Citation
 If you use this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
 
 **Paper & Data:**
@@ -87,7 +87,7 @@ The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLA
 	doi          = {10.14459/2024MP1743877},
 	url          = {https://mediatum.ub.tum.de/1743877},
 	type         = {Dataset},
-	abstract     = {The ConSLAM BIM and GT Poses comprehends the 3D building information model (in IFC and Revit formats), manually elaborated based on the terrestrial laser scanner of the sequence 2 of ConSLAM, and the refined grounth truth (GT) poses (in TUM format) of the sessions 2, 3, 4 and 5 of the open-access Con{SLAM} dataset. This dataset can be found here: https://github.com/mac137/ConSLAM},
+	abstract     = {The ConSLAM BIM and GT Poses dataset comprehends the 3D building information model (in IFC and Revit formats), manually elaborated based on the terrestrial laser scanner of the sequence 2 of ConSLAM, and the refined ground truth (GT) poses (in TUM format) of the sessions 2, 3, 4 and 5 of the open-access Con{SLAM} dataset. This dataset can be found here: https://github.com/mac137/ConSLAM},
 	keywords     = {LiDAR; Multi-Session SLAM; Pose-Graph Optimization; Loop Closure; Long-term Mapping; Change Detection; {BIM} Update; {3D} Indoor Localization and Mapping},
 	language     = {en}
 }
@@ -95,4 +95,4 @@ The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLA
 **Code:** To be added.
 
 ## Acknowledgements
-This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam)(2022), whose author is Giseop Kim.
+This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022), whose author is Giseop Kim.
