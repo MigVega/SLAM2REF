@@ -68,7 +68,7 @@ The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLA
 
 @inproceedings{BIM_SLAM:vega:2023,
 	author = {Vega-Torres, Miguel A. and Braun, A. and Borrmann, A.},
-	 title = {{BIM-SLAM: Integrating BIM Models in Multi-session SLAM for Lifelong Mapping using 3D LiDAR}},
+        title = {{BIM-SLAM: Integrating BIM Models in Multi-session SLAM for Lifelong Mapping using 3D LiDAR}},
 	booktitle = {Proc. of the 40th International Symposium on Automation and Robotics in Construction (ISARC 2023)},
 	year = {2023},
 	month = {07},
