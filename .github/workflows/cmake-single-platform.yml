@@ -27,7 +27,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake make gcc g++ git libboost-all-dev libpcl-dev \
             libeigen3-dev libglfw3-dev libjpeg-dev libpng-dev libtiff-dev \
-            libglew-dev liblz4-dev libopenmpi-dev libxrandr-dev
+            libglew-dev liblz4-dev libopenmpi-dev libxrandr-dev libxinerama-dev
 
       - name: Install GTSAM from source
         run: |
@@ -52,28 +52,53 @@ jobs:
 #          make -j$(nproc)
 #          sudo make install
 
-      - name: Install open3D
-        run: |
-          git clone --branch v0.17.0 https://github.com/isl-org/Open3D.git
-          cd Open3D
-          mkdir build
-          cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release \
-                   -DBUILD_SHARED_LIBS=ON \
-                   -DBUILD_CUDA_MODULE=OFF \
-                   -DBUILD_UNIT_TESTS=OFF \
-                   -DBUILD_EXAMPLES=OFF
-          make -j$(nproc)
-          sudo make install
+#      - name: Install open3D
+#        run: |
+#          git clone --branch v0.17.0 https://github.com/isl-org/Open3D.git
+#          cd Open3D
+#          mkdir build
+#          cd build
+#          cmake .. -DCMAKE_BUILD_TYPE=Release \
+#                   -DBUILD_SHARED_LIBS=ON \
+#                   -DBUILD_CUDA_MODULE=OFF \
+#                   -DBUILD_UNIT_TESTS=OFF \
+#                   -DBUILD_EXAMPLES=OFF
+#          make -j$(nproc)
+#          sudo make install
         #run: wget -c https://github.com/intel-isl/Open3D/releases/download/v0.12.0/open3d-app-0.12.0-Ubuntu_20.04.deb && sudo apt-get install ./open3d-app-0.12.0-Ubuntu_20.04.deb
         # Add other dependencies if required
 
-      - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      - name: Clone Open3D repository
+        run: git clone https://github.com/isl-org/Open3D
 
-      - name: Build
+      - name: Install Open3D dependencies (Ubuntu)
+        working-directory: Open3D
+        run: util/install_deps_ubuntu.sh
+
+      - name: Configure Open3D
+        working-directory: Open3D
+        run: |
+          mkdir build
+          cd build
+          # Configure Open3D with Python bindings disabled
+          cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/open3d_install -DBUILD_PYTHON_MODULE=OFF
+
+      - name: Build Open3D
+        working-directory: Open3D/build
+        run: make -j$(nproc)
+
+      - name: Install Open3D C++ library
+        working-directory: Open3D/build
+        run: sudo make install
+
+      - name: Configure CMake for the project
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DGTSAM_DIR=${{env.GTSAM_DIR}}
+
+      - name: Build the project
         run: cmake --build build --config ${{env.BUILD_TYPE}}
 
-      - name: Test
+      - name: Test the project
         working-directory: build
-        run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure # Adds verbosity to show failing test output
+        run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
+
+
