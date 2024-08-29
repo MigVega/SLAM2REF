@@ -84,39 +84,77 @@ The following image presents a very brief overview of how the method works.
 <p align="center"><img src="doc/imgs/Gtihub_overview__.png" alt="SLAM2REF Github - Overview" width="80%" /></p>
 
 
-    
-## How to run the code?
 
-For Building, add this flag to use only five threads `-j 5`; otherwise, the project might exit before building.
+## How to Run the Code
 
-- After successfully building the project, all the input paths (to the query and central sessions, for example) and parameters are given in the file `config/params.yaml`.
+### 1. Building the Project
 
-- Then, simply running the code (with the play bottom) should start the execution.
-    in the console, the following should be visible:
-  
+- When building the project, use the `-j 5` flag to limit the process to five threads. This helps prevent the project from exiting prematurely.
+
+### 2. Setting Up Directory Structure
+
+- After a successful build, you need to set up the directory structure. Run the following commands in your terminal to create the necessary folders:
+
+  ```bash
+    cd
+    mkdir -p Repos/00.SLAM2REF/data/outputs/00.TestA01_scans_in_BIM_ROI
+    cd Repos/00.SLAM2REF/data
+  ```
+### 3. Download and Prepare Sample Data
+- You can download sample data from [this link](https://drive.google.com/drive/folders/1-ay5U0WOnheeMLfr2lNsxzbV5TO6zF1O?usp=sharing) and unzip the file inside the `Repos/00.SLAM2REF/data` directory. Ensure that the "input" folder is more than 500 MB in size to confirm a successful download.
+
+### 4. Configure the Project
+- Open the `config/params.yaml` file and replace the three occurrences of `mlegion` with your Linux username.
+
+### 5. Running the Code
+- Start the execution by running the code. You should see the following in the console:      
     ```bash
-    ----> Slam2ref starts.
+        ----> Slam2ref starts.
     ```
+ - **Optional**: To avoid long execution (around 22 min), you can avoid performing the _final ICP_ step. 
+    - To do so go to `config/params.yaml` and change: `using_MV_performing_final_ICP:`  to `false` instead of `true`, however, skipping the final ICP step means the poses will not be refined to centimeter accuracy.
 
-- Once the program has been successfully finalized, you should see the following:
+
+### 6. Monitoring Execution and Output
+- Once the program has been successfully finalized (After approximately 22 minutes with the final ICP step), you should see the following:
   
     ```bash
     ----> Slam2ref done.
     ```
+ - Check the output files in CloudCompare (all should be in `/home/[your-username]/Repos/00.SLAM2REF/data/outputs/00.TestA01_scans_in_BIM_ROI/TestA01`). Among the _.txt_ files, only the ones with _CC_ can be open directly in CloudCompare.
+
+- For instance, the file `!DLIO_real_world_SLAM_session_central_aft_KNN_intersession_loops_CC.txt` contains the poses in point cloud format of the real-world session after the ISC and KNN loops, which are aligned with the BIM model. In contrast, the original poses before these adjustments are in `!DLIO_real_world_SLAM_session_central_bfr_intersession_loops_CC.txt`. Additionally, you can view the original session poses from the BIM model in `!BIM_session_scans_296-422_central_bfr_intersession_loops_CC.txt`.
+    - **Tip:** Increase the point size in your viewer to better visualize the poses.
+
+- If you performed the **final ICP** step, you should also have a folder named "Part7_final_ICP". Inside, the file `!00_CENTRAL_SESSION_after_FinalICP_CC.txt` contains the further refined poses. In this file:
+    - **Blue** denotes poses considered good,
+    - **Green** denotes perfect poses,
+    - **Red** denotes poses that are poor,
+    - **Black** denotes scans outside the reference map where registration was not possible.
+
+- The file `!FINAL_source_cloud_TOTAL.pcd` provides the map of the real-world session reconstructed using only the good and perfectly registered scans. You may need to colorize this map for better visualization. Compare this reconstructed map with the reference map located at `/home/[your-username]/Repos/00.SLAM2REF/data/inputs/01.Ref_maps_pcs`.
 
 
-## Stay Up-to-Date / Support
-Start the repo!
+
+## Stay Up-to-Date / Support the Project
+
+- **Upcoming Features:** We will be adding more code soon, including functionality to generate session data from the reference map.
+- **Stay Informed:** To keep up with the latest updates and developments, make sure to watch and star the repository!
+
+Your support helps us continue improving the project. Thank you for being part of our community!
+
 <p align="center"><img src="doc/imgs/github_start_only.gif" alt="SLAM2REF Github - how to star the repo" width="50%" /></p>
 
 
 ## License
-For academic usage, the code is released under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html). 
 
-For any commercial purpose, please contact the author.
+- **Academic Use:** The code is available under the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html) for academic purposes.
+- **Commercial Use:** For any commercial applications, please contact the author at `mavtarturo@hotmail.com` to discuss licensing options.
 
 ## Citation
-If you use this work or our data in your research, please include the following citations (these BibTeX entries are the best versions you will likely find ✔️).
+
+If you use this work or our data in your research, please cite it appropriately. 
+The following BibTeX entries are the most accurate versions available:
 
 **Paper & Data:**
 The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLAM) and Ground Truth poses.
@@ -167,5 +205,7 @@ The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLA
 ```
 **Code:** To be added.
 
+Thank you for acknowledging our work!
+
 ## Acknowledgements
-This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022), whose author is Giseop Kim.
+This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022), and [Scan Context](https://github.com/gisbi-kim/SC-A-LOAM) (2021) whose author is Giseop Kim.
