@@ -72,7 +72,7 @@ The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLA
 	booktitle = {Proc. of the 40th International Symposium on Automation and Robotics in Construction (ISARC 2023)},
 	year = {2023},
 	month = {07},
-    isbn = {978-0-6458322-0-4},
+        isbn = {978-0-6458322-0-4},
 	doi = {10.22260/ISARC2023/0070},
 	keywords = {BIM; LiDAR; SLAM },
 	url = {http://www.iaarc.org/publications/2023_proceedings_of_the_40th_isarc_chennai_india/bim_slam-integrating_bim_models_in_multi_session_slam_for_lifelong_mapping_using_3d_lidar.html},
