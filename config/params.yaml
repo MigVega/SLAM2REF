@@ -1,10 +1,14 @@
 slam2ref:
   # TEST #1: BIM central, DLIO query
-  sessions_dir: "/home/mlegion/ws/07_sc_a_loam/src/data/01.Results_SessionData/03.ConSLAM/00.B_Test3_Labeled_scans_in_ROI/" # end with /
+  sessions_dir: "/home/mlegion/Repos/01_slam2ref/data/0.Inputs/0.SessionData/0.ConSLAM/00.TestA01_scans_in_ROI/" # end with /
   central_sess_name:   "BIM_session_scans_296-422" #"BIM_original_scan_also_ceiling" # #"TLS_session_scans_every_2m" #"TLS_session"
   query_sess_name: "ConSLAM_All_scans"
-  save_directory: "/home/mlegion/ws/07_sc_a_loam/src/data/08.SLAM2REF_Results_testG_BIM/" # end with "/" slam2ref_WithoutRS_loops
-  new_folder_test_name: "TestG_29_Open_Source/"
+  save_directory: "/home/mlegion/Repos/01_slam2ref/data/02.Outputs/00.Test_with_BIM/" # end with "/"
+  new_folder_test_name: "TestA01/"
+
+  ## Reference PC -> Only used for final ICP
+  ## from BIM or TLS
+  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/01_slam2ref/data/0.Inputs/1.Ref_map_pc/path/to/your/ref/point-cloud-map.ply" #save it in ply binary format, in that way you save space ;).
 
   do_not_edit_central_session: true    # With true (slam2ref) we will not edit the central session -> taking it as a ground truth, not as a session to be optimized. False -> original Lt-SLAM -> optimizing both sessions
 
@@ -74,16 +78,7 @@ slam2ref:
   # 1cm thrs (in range): 1: Very good, 2: good
   loopFitnessScoreThreshold_Final_ICP: 0.3  # This has to be very high, since is for the KNN_loops # be carefull the thr here is not the same as in the previous line since we used here a different max_dist_thr
   loopFitnessScoreThreshold_Final_ICP_2: 0.15  # 0.2 is too low -> bad alignments would be passed as correct # if at least 20% of the points are in 1 cm it is consider almost good scan
-  ## Reference PC -> Only used for final ICP
-  ## from BIM
-  #  path_to_target_pc_for_final_ICP: "/home/mlegion/ws/07_sc_a_loam/src/data/BIM_pc.pcd" ## Small CMS model
-  #  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/13.BIM2SCD/v2_private_github/BIM2SCD/Ifc2SegmentedPc/Outputs_pcd/V9_All_merged_ROI_0_01.ply" # Very time-consuming -> 40 min for 380 scans in query session
-  #  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/13.BIM2SCD/v2_private_github/BIM2SCD/Ifc2SegmentedPc/Outputs_pcd/V9_All_merged_ROI_0_05_target_BIM.ply" #Less dense target PC from BIM -> With this the thrs of Final ICP have to be reduced drastically -> otherwise the method will not save any point cloud as good or very good registered
-  path_to_target_pc_for_final_ICP: "/home/mlegion/Repos/13.BIM2SCD/v2_private_github/BIM2SCD/Ifc2SegmentedPc/Outputs_pcd/V9_All_merged_ROI_0_01_V4_cut_no_color.ply" #Cut (more only ROI) and without color.
 
-  ## from TLS
-  #  path_to_target_pc_for_final_ICP: "/home/mlegion/01.Datasets/03.ConSLAM/01.Sequences/Sequence2/04.TLS_point_cloud/groundtruth_scan_ORIGINAL_v4_aligned_with_BIM_NoColor_cut.ply"
-  #  path_to_target_pc_for_final_ICP: "/home/mlegion/01.Datasets/03.ConSLAM/01.Sequences/Sequence2/04.TLS_point_cloud/groundtruth_scan_ORIGINAL_v5_1cm_aligned_with_BIM_NoColor_cut.ply"
   start_group_index_Final_ICP: 0                  # ONLY for debugging -> otherwise it should be 0# 65 to analyze problematic section in seq 2
 
   range_distance_for_second_fitness: 0.3          # (EXPERIMENTAL)s only points closer to this distance to the target pc, will be used to calculated the second fitness score # 30 cm considering the max wall thickness

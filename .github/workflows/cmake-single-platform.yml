@@ -8,6 +8,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  GTSAM_DIR: /usr/local/lib/cmake/GTSAM
 
 jobs:
   build:
@@ -18,7 +19,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev
+        run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev  \
+            libopencv-dev libyaml-cpp-dev
 
 
 
@@ -38,35 +40,6 @@ jobs:
           cmake .. -DCMAKE_BUILD_TYPE=Release
           make -j$(nproc)
           sudo make install
-
-#      - name: Install GTSAM
-#        run: git clone --single-branch --branch develop https://github.com/borglab/gtsam.git && mkdir build && cd build && cmake .. && make install
-
-#      - name: Install GTSAM from source
-#        run: |
-#          git clone --branch 4.2a5 https://github.com/borglab/gtsam.git
-#          cd gtsam
-#          mkdir build
-#          cd build
-#          cmake .. -DCMAKE_BUILD_TYPE=Release
-#          make -j$(nproc)
-#          sudo make install
-
-#      - name: Install open3D
-#        run: |
-#          git clone --branch v0.17.0 https://github.com/isl-org/Open3D.git
-#          cd Open3D
-#          mkdir build
-#          cd build
-#          cmake .. -DCMAKE_BUILD_TYPE=Release \
-#                   -DBUILD_SHARED_LIBS=ON \
-#                   -DBUILD_CUDA_MODULE=OFF \
-#                   -DBUILD_UNIT_TESTS=OFF \
-#                   -DBUILD_EXAMPLES=OFF
-#          make -j$(nproc)
-#          sudo make install
-        #run: wget -c https://github.com/intel-isl/Open3D/releases/download/v0.12.0/open3d-app-0.12.0-Ubuntu_20.04.deb && sudo apt-get install ./open3d-app-0.12.0-Ubuntu_20.04.deb
-        # Add other dependencies if required
 
       - name: Clone Open3D repository
         run: git clone https://github.com/isl-org/Open3D
