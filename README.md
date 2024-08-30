@@ -44,6 +44,8 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
   </a>
 </p>
 
+
+
 [//]: # (  <a href="https://github.com/MigVega/SLAM2REF">)
 
 [//]: # (    <img src="https://img.shields.io/github/stars/MigVega/SLAM2REF" alt="GitHub Repo stars">)
@@ -58,10 +60,10 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
 
 
 ## What is SLAM2REF?
-SLAM2REF uses pose-graph multi-Session anchoring to align your LiDAR data with a reference map or with another session, allowing precise 6-DoF pose retrieval and map extension.
+SLAM2REF uses pose-graph multi-session anchoring to align your LiDAR data with a reference map or with another session, allowing precise 6-DoF pose retrieval and map extension.
 - This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent. This is also an extension of the [BIM-SLAM](http://www.iaarc.org/publications/2023_proceedings_of_the_40th_isarc_chennai_india/bim_slam-integrating_bim_models_in_multi_session_slam_for_lifelong_mapping_using_3d_lidar.html) project, for which a [video](https://youtu.be/5WgPRRijI4Y) explanation is available.
-- Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition.
-- Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles.
+- Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition, which is an extension of [Scan Context](https://github.com/gisbi-kim/SC-A-LOAM).
+- Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles, this one is a particular implementation of the [Open 3D GICP](https://github.com/isl-org/Open3D/pull/3181).
 - SLAM2REF additionally allows the retrieval of 6-DoF poses with an accuracy of up to 3 cm given an accurate TLS point cloud as a reference map (this map should be accurate, at least regarding the position of permanent elements such as walls and columns).
 
 The following image presents a very brief overview of how the method works.
@@ -108,11 +110,11 @@ The following image presents a very brief overview of how the method works.
     - **Without final ICP:** Approximately less than 1 minute.
     - **With final ICP:** Approximately 22 minutes.
 
-- Once the program has completed, you will see the following message in the console:
+- Once the program has finished, you will see the following message in the console:
     ```bash
     ----> Slam2ref done.
     ```
- - Check the output files in CloudCompare (all should be in `/home/[your-username]/Repos/00.SLAM2REF/data/outputs/00.TestA01_scans_in_BIM_ROI/TestA01`). Among the _.txt_ files, only the ones with _CC_ can be open directly in CloudCompare.
+ - Check the output files in [CloudCompare](https://www.cloudcompare.org/release/index.html) (all should be in `/home/[your-username]/Repos/00.SLAM2REF/data/outputs/00.TestA01_scans_in_BIM_ROI/TestA01`). Among the _.txt_ files, only the ones with _CC_ can be opened directly in CloudCompare.
 
 - For instance, the file `!DLIO_real_world_SLAM_session_central_aft_KNN_intersession_loops_CC.txt` contains the poses in point cloud format of the real-world session after the ISC and KNN loops, which are aligned with the BIM model. In contrast, the original poses before these adjustments are in `!DLIO_real_world_SLAM_session_central_bfr_intersession_loops_CC.txt`. Additionally, you can view the original session poses from the BIM model in `!BIM_session_scans_296-422_central_bfr_intersession_loops_CC.txt`.
     - **Tip:** Increase the point size in your viewer to better visualize the poses.
@@ -199,4 +201,14 @@ The data consists of the BIM Model of [ConSLAM](https://github.com/mac137/ConSLA
 Thank you for acknowledging our work!
 
 ## Acknowledgements
-This is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022), and [Scan Context](https://github.com/gisbi-kim/SC-A-LOAM) (2021) whose author is Giseop Kim.
+
+This project builds upon several existing works that have significantly contributed to its development:
+
+- **[LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022)** by [Giseop Kim](https://github.com/gisbi-kim): A foundational SLAM framework that this work extends and builds upon.
+- **[Scan Context](https://github.com/gisbi-kim/SC-A-LOAM) (2021)** by [Giseop Kim](https://github.com/gisbi-kim): A method for place recognition in 3D point cloud data, integrated into our approach.
+- **[Open3D GICP](https://github.com/isl-org/Open3D/pull/3181) (2021)** by [Ignacio Vizzo](https://github.com/nachovizzo): Utilized for efficient geometric alignment of point clouds.
+- **[DLIO (Direct LiDAR-Inertial Odometry)](https://github.com/vectr-ucla/direct_lidar_inertial_odometry) (2022)** by [Kenny Chen](https://github.com/kennyjchen): Employed for LiDAR undistortion (Motion distortion correction with IMU measurements) to enhance data accuracy.
+
+We are grateful to the authors for making their awesome work available to the community.
+
+
