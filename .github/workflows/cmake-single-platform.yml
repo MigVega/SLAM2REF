@@ -68,14 +68,16 @@ jobs:
         working-directory: Open3D/build
         run: sudo make install
 
+      - name: Set Open3D CMake path
+        run: echo "Open3D_DIR=$HOME/open3d_install/lib/cmake/Open3D" >> $GITHUB_ENV
+
       - name: Configure CMake for the project
-        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DGTSAM_DIR=${{env.GTSAM_DIR}}
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DGTSAM_DIR=${{ env.GTSAM_DIR }} -DOpen3D_DIR=${{ env.Open3D_DIR }}
 
       - name: Build the project
-        run: cmake --build build --config ${{env.BUILD_TYPE}}
+        run: cmake --build build --config ${{ env.BUILD_TYPE }}
 
       - name: Test the project
         working-directory: build
-        run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
-
+        run: ctest -C ${{ env.BUILD_TYPE }} --output-on-failure
 
