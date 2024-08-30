@@ -204,10 +204,10 @@ Thank you for acknowledging our work!
 
 This project builds upon several existing works that have significantly contributed to its development:
 
-- **[LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022)** by [Giseop Kim](https://github.com/gisbi-kim): A foundational SLAM framework that this work extends and builds upon.
-- **[Scan Context](https://github.com/gisbi-kim/SC-A-LOAM) (2021)** by [Giseop Kim](https://github.com/gisbi-kim): A method for place recognition in 3D point cloud data, integrated into our approach.
-- **[Open3D GICP](https://github.com/isl-org/Open3D/pull/3181) (2021)** by [Ignacio Vizzo](https://github.com/nachovizzo): Utilized for efficient geometric alignment of point clouds.
-- **[DLIO (Direct LiDAR-Inertial Odometry)](https://github.com/vectr-ucla/direct_lidar_inertial_odometry) (2022)** by [Kenny Chen](https://github.com/kennyjchen): Employed for LiDAR undistortion (Motion distortion correction with IMU measurements) to enhance data accuracy.
+- **[LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main/ltslam) (2022)** by [Giseop Kim](https://github.com/gisbi-kim): A foundational Multi-Session anchoring framework that this work extends and builds upon.
+- **[Scan Context](https://github.com/gisbi-kim/SC-A-LOAM) (2021)** by [Giseop Kim](https://github.com/gisbi-kim): A method for place recognition in 3D point cloud data, extended to indoor Scan Context in our approach.
+- **[Open3D GICP](https://github.com/isl-org/Open3D/pull/3181) (2021)** by [Ignacio Vizzo](https://github.com/nachovizzo): Utilized for efficient geometric alignment of point clouds and implemented in the proposed YawGICP.
+- **[DLIO (Direct LiDAR-Inertial Odometry)](https://github.com/vectr-ucla/direct_lidar_inertial_odometry) (2022)** by [Kenny Chen](https://github.com/kennyjchen): Employed for LiDAR undistortion (Motion distortion correction with IMU measurements) to enhance data accuracy before creating the query session.
 
 We are grateful to the authors for making their awesome work available to the community.
 
