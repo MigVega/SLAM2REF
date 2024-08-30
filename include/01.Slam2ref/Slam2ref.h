@@ -3,6 +3,8 @@
 //
 #pragma once
 
+
+// GTSAM headers
 #include <gtsam/inference/Symbol.h>
 
 #include <gtsam/geometry/Rot3.h>
@@ -16,6 +18,10 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
 #include <gtsam/nonlinear/ISAM2.h>
+#include <gtsam/inference/Symbol.h>
+
+// Standard headers
+#include <memory> // For std::shared_pt
 
 #include <optional>
 
