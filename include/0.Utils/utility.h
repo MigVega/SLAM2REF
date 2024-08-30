@@ -94,7 +94,7 @@
 #include <array>
 #include <thread>
 #include <mutex>
-
+#include <boost/filesystem.hpp> //for copy function
 #include <filesystem> // requires gcc version >= 8
 
 // OPEN 3D //////////////////////////////
