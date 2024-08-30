@@ -4,6 +4,7 @@
 //
 #pragma once
 
+// GTSAM headers
 #include <gtsam/geometry/Rot2.h>
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/slam/PriorFactor.h>
@@ -11,6 +12,19 @@
 #include <gtsam/nonlinear/Marginals.h>
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/inference/Symbol.h>
+#include <gtsam/nonlinear/NonlinearFactor.h>
+#include <gtsam/base/Testable.h>
+#include <gtsam/base/Lie.h>
+#include <gtsam/base/Matrix.h>
+
+// Boost headers
+#include <boost/concept/assert.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/optional.hpp>
+#include <boost/pointer_cast.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/serialization.hpp> // Ensure the serialization core is included
 
 namespace gtsam {
 
