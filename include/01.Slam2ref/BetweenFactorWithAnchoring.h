@@ -138,6 +138,10 @@ namespace gtsam {
       ar & BOOST_SERIALIZATION_NVP(measured_);
     }
 
+    virtual Vector unwhitenedError(const Values& x, boost::optional<std::vector<Matrix>&> H = boost::none) const override {
+    return Base::unwhitenedError(x, H);
+    }
+
 	//   // Alignment, see https://eigen.tuxfamily.org/dox/group__TopicStructHavingEigenMembers.html
 	//   enum { NeedsToAlign = (sizeof(VALUE) % 16) == 0 };
   //   public:
