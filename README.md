@@ -73,6 +73,11 @@ The following image presents a very brief overview of how the method works.
 
 ## How to Run the Code
 
+### 0. Install Dependencies
+- We recommend to install GTSAM, Open 3D from source. Moreover you need Open CV and PCL 
+the commands to install all dependencies can be found in the file inside `.github/workflows`.
+
+
 ### 1. Building the Project
 
 - When building the project, use the `-j 5` flag to limit the process to five threads. This helps prevent the project from exiting prematurely.
