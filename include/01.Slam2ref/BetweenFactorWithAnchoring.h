@@ -101,21 +101,22 @@ namespace gtsam {
     // line 224 https://gtsam.org/doxygen/a00053_source.html
     // isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html
     /** vector of errors */
-    Vector evaluateError(
-        const T& p1, const T& p2, const T& anchor_p1, const T& anchor_p2,
-        boost::optional<Matrix&> H1 = boost::none,
-        boost::optional<Matrix&> H2 = boost::none,
-        boost::optional<Matrix&> anchor_H1 = boost::none,
-        boost::optional<Matrix&> anchor_H2 = boost::none
-      ) const {
+virtual Vector evaluateError(
+    const T& p1, const T& p2, const T& anchor_p1, const T& anchor_p2,
+    boost::optional<Matrix&> H1 = boost::none,
+    boost::optional<Matrix&> H2 = boost::none,
+    boost::optional<Matrix&> anchor_H1 = boost::none,
+    boost::optional<Matrix&> anchor_H2 = boost::none
+) const override {
 
-      // anchor node h(.) (ref: isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html)
-      T hx1 = traits<T>::Compose(anchor_p1, p1, anchor_H1, H1); // for the updated jacobian, see line 60, 219, https://gtsam.org/doxygen/a00053_source.html
-      T hx2 = traits<T>::Compose(anchor_p2, p2, anchor_H2, H2); 
-      T hx = traits<T>::Between(hx1, hx2, H1, H2); 
+    // anchor node h(.) (ref: isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html)
+    T hx1 = traits<T>::Compose(anchor_p1, p1, anchor_H1, H1); // for the updated Jacobian, see line 60, 219, https://gtsam.org/doxygen/a00053_source.html
+    T hx2 = traits<T>::Compose(anchor_p2, p2, anchor_H2, H2); 
+    T hx = traits<T>::Between(hx1, hx2, H1, H2); // compute the relative pose between the two composed poses
 
-      return traits<T>::Local(measured_, hx);
-    }
+    // Return the local coordinate error between the measured pose and the computed relative pose
+    return traits<T>::Local(measured_, hx);
+}
 
     /** return the measured */
     const VALUE& measured() const {
@@ -138,9 +139,7 @@ namespace gtsam {
       ar & BOOST_SERIALIZATION_NVP(measured_);
     }
 
-    virtual Vector unwhitenedError(const Values& x, boost::optional<std::vector<Matrix>&> H = boost::none) const override {
-    return Base::unwhitenedError(x, H);
-    }
+    
 
 	//   // Alignment, see https://eigen.tuxfamily.org/dox/group__TopicStructHavingEigenMembers.html
 	//   enum { NeedsToAlign = (sizeof(VALUE) % 16) == 0 };
