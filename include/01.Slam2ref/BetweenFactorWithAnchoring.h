@@ -94,6 +94,9 @@ namespace gtsam {
 
     /** implement functions needed to derive from Factor */
 
+
+
+
     // some useful link, giseop 
     // line 384, https://gtsam.org/doxygen/a00317_source.html
     // https://gtsam.org/doxygen/a02091.html
@@ -101,6 +104,7 @@ namespace gtsam {
     // line 224 https://gtsam.org/doxygen/a00053_source.html
     // isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html
     /** vector of errors */
+/** vector of errors */
 /** vector of errors */
 virtual Vector evaluateError(
     const T& p1, const T& p2, const T& anchor_p1, const T& anchor_p2,
@@ -118,6 +122,10 @@ virtual Vector evaluateError(
     // Return the local coordinate error between the measured pose and the computed relative pose
     return traits<T>::Local(measured_, hx);
 }
+
+
+
+
 
     /** return the measured */
     const VALUE& measured() const {
