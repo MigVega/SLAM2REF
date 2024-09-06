@@ -101,6 +101,7 @@ namespace gtsam {
     // line 224 https://gtsam.org/doxygen/a00053_source.html
     // isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html
     /** vector of errors */
+/** vector of errors */
 virtual Vector evaluateError(
     const T& p1, const T& p2, const T& anchor_p1, const T& anchor_p2,
     boost::optional<Matrix&> H1 = boost::none,
