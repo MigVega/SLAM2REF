@@ -103,24 +103,42 @@ namespace gtsam {
     // betweenfactor https://gtsam.org/doxygen/a00935_source.html
     // line 224 https://gtsam.org/doxygen/a00053_source.html
     // isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html
-    /** vector of errors */
-/** vector of errors */
+
+
+
 /** vector of errors */
 virtual Vector evaluateError(
-    const T& p1, const T& p2, const T& anchor_p1, const T& anchor_p2,
+    const VALUE& p1, const VALUE& p2, const VALUE& anchor_p1, const VALUE& anchor_p2,
     boost::optional<Matrix&> H1 = boost::none,
     boost::optional<Matrix&> H2 = boost::none,
     boost::optional<Matrix&> anchor_H1 = boost::none,
     boost::optional<Matrix&> anchor_H2 = boost::none
 ) const override {
 
-    // anchor node h(.) (ref: isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html)
-    T hx1 = traits<T>::Compose(anchor_p1, p1, anchor_H1, H1); // for the updated Jacobian, see line 60, 219, https://gtsam.org/doxygen/a00053_source.html
-    T hx2 = traits<T>::Compose(anchor_p2, p2, anchor_H2, H2); 
-    T hx = traits<T>::Between(hx1, hx2, H1, H2); // compute the relative pose between the two composed poses
+    // Step 1: Compute the composed poses with anchor nodes
+    VALUE hx1 = traits<VALUE>::Compose(anchor_p1, p1, anchor_H1, H1); 
+    VALUE hx2 = traits<VALUE>::Compose(anchor_p2, p2, anchor_H2, H2); 
 
-    // Return the local coordinate error between the measured pose and the computed relative pose
-    return traits<T>::Local(measured_, hx);
+    // Step 2: Compute the relative pose between the two composed poses
+    Matrix H_between_1, H_between_2;
+    VALUE hx = traits<VALUE>::Between(hx1, hx2, H_between_1, H_between_2);
+
+    // Step 3: Update the Jacobians using the chain rule (if provided)
+    if (H1) {
+        *H1 = H_between_1 * (*H1); // chain rule: d(hx)/d(p1) = d(Between)/d(hx1) * d(Compose)/d(p1)
+    }
+    if (H2) {
+        *H2 = H_between_2 * (*H2); // chain rule: d(hx)/d(p2) = d(Between)/d(hx2) * d(Compose)/d(p2)
+    }
+    if (anchor_H1) {
+        *anchor_H1 = H_between_1 * (*anchor_H1); // chain rule for anchor Jacobians
+    }
+    if (anchor_H2) {
+        *anchor_H2 = H_between_2 * (*anchor_H2);
+    }
+
+    // Step 4: Compute and return the local coordinate error between the measured pose and the computed relative pose
+    return traits<VALUE>::Local(measured_, hx);
 }
 
 
