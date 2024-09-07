@@ -107,12 +107,15 @@ namespace gtsam {
 
 
 /** vector of errors */
-virtual Vector evaluateError(
-    const VALUE& p1, const VALUE& p2, const VALUE& anchor_p1, const VALUE& anchor_p2,
-    boost::optional<Matrix&> H1 = boost::none,
-    boost::optional<Matrix&> H2 = boost::none,
-    boost::optional<Matrix&> anchor_H1 = boost::none,
-    boost::optional<Matrix&> anchor_H2 = boost::none
+virtual gtsam::Vector evaluateError(
+    const gtsam::Pose3& p1,
+    const gtsam::Pose3& p2,
+    const gtsam::Pose3& anchor_p1,
+    const gtsam::Pose3& anchor_p2,
+    boost::optional<Eigen::Matrix<double, -1, -1>&> H1 = boost::none,
+    boost::optional<Eigen::Matrix<double, -1, -1>&> H2 = boost::none,
+    boost::optional<Eigen::Matrix<double, -1, -1>&> anchor_H1 = boost::none,
+    boost::optional<Eigen::Matrix<double, -1, -1>&> anchor_H2 = boost::none
 ) const override {
 
     // Step 1: Compute the composed poses with anchor nodes
