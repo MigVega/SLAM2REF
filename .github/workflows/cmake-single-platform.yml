@@ -9,6 +9,8 @@ on:
 env:
   BUILD_TYPE: Release
   GTSAM_DIR: /usr/local/lib/cmake/GTSAM
+  TBB_ROOT_DIR: /usr/include/tbb # or wherever your TBB is installed
+  TBB_LIBRARY: /usr/lib/x86_64-linux-gnu/libtbb.so  # or wherever your TBB library is installed
 
 jobs:
   build:
@@ -21,15 +23,17 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev libyaml-cpp-dev
 
-
-
-      - name: Install dependencies
+      - name: Install additional dependencies, including TBB
         run: |
           sudo apt-get update
           sudo apt-get install -y cmake make gcc g++ git libboost-all-dev libpcl-dev \
             libeigen3-dev libglfw3-dev libjpeg-dev libpng-dev libtiff-dev \
-            libglew-dev liblz4-dev libopenmpi-dev libxrandr-dev libxinerama-dev \
-            libtbb-dev
+            libglew-dev liblz4-dev libopenmpi-dev libxrandr-dev libxinerama-dev libtbb-dev
+
+      - name: Export TBB paths
+        run: |
+          echo "TBB_ROOT_DIR=/usr/include/tbb" >> $GITHUB_ENV
+          echo "TBB_LIBRARY=/usr/lib/x86_64-linux-gnu/libtbb.so" >> $GITHUB_ENV
 
       - name: Install GTSAM from source
         run: |
@@ -37,7 +41,7 @@ jobs:
           cd gtsam
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DTBB_ROOT_DIR=${{ env.TBB_ROOT_DIR }} -DTBB_LIBRARY=${{ env.TBB_LIBRARY }}
           make -j$(nproc)
           sudo make install
 
@@ -81,4 +85,3 @@ jobs:
       - name: Test the project
         working-directory: build
         run: ctest -C ${{ env.BUILD_TYPE }} --output-on-failure
-
