@@ -32,7 +32,7 @@ jobs:
 
       - name: Install GTSAM from source
         run: |
-          git clone --branch develop https://github.com/borglab/gtsam.git
+          git clone --branch 4.0.3 https://github.com/borglab/gtsam.git
           cd gtsam
           mkdir build
           cd build

@@ -96,13 +96,15 @@ namespace gtsam {
 
 
 
-
+    // implemented with GTSAM v 4.0.3
     // some useful link, giseop 
     // line 384, https://gtsam.org/doxygen/a00317_source.html
     // https://gtsam.org/doxygen/a02091.html
     // betweenfactor https://gtsam.org/doxygen/a00935_source.html
     // line 224 https://gtsam.org/doxygen/a00053_source.html
     // isam ver. line 233, https://people.csail.mit.edu/kaess/isam/doc/slam2d_8h_source.html
+
+    // Evalute eror (with examples) https://gtsam.org/doxygen/a04464.html#a5e4197ee6a113e77d2abc1dbbebb0857
 
 
 
