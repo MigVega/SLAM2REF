@@ -23,15 +23,15 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
 
 
 <p align="center">
-    <a href="https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml">
-            <img src="https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml/badge.svg" alt="Build">
-        </a>
     <a href="https://arxiv.org/abs/2408.15948"><b>ArXiv Paper (better images)</b></a> •
     <a href="https://link.springer.com/article/10.1007/s41693-024-00126-w"><b>Paper (nicer to read)</b></a> •
     <a href="https://mediatum.ub.tum.de/1743877"><b>Data</b></a>
 </p>
 
 <p align="center">
+  <a href="https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml">
+            <img src="https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml/badge.svg" alt="Build">
+        </a>
   <a href="https://arxiv.org/abs/2408.15948">
     <img src="https://img.shields.io/badge/arXiv-2408.15948-%23B31C1B?style=flat" alt="arxiv">
   </a>
