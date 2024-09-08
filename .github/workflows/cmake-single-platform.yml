@@ -9,7 +9,7 @@ on:
 env:
   BUILD_TYPE: Release
   GTSAM_DIR: /usr/local/lib/cmake/GTSAM
-  TBB_INCLUDE_DIR: /usr/include
+  TBB_INCLUDE_DIR: /usr/include/tbb
   TBB_LIBRARY_DIR: /usr/lib/x86_64-linux-gnu
   TBB_LIBS: "/usr/lib/x86_64-linux-gnu/libtbb.so;/usr/lib/x86_64-linux-gnu/libtbbmalloc.so"
 
@@ -23,6 +23,12 @@ jobs:
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev libyaml-cpp-dev libtbb-dev
+
+      - name: List TBB include directory
+        run: ls -l /usr/include/tbb
+
+      - name: List TBB library directory
+        run: ls -l /usr/lib/x86_64-linux-gnu | grep tbb
 
       - name: Install GTSAM from source
         run: |
