@@ -32,10 +32,9 @@ jobs:
           cd oneTBB-${{ env.TBB_VERSION }}
           make -j$(nproc)
           sudo cp -r include/tbb /usr/local/include/
-          sudo cp build/linux_*_release/libtbb.so* /usr/local/lib/
-          sudo cp build/linux_*_release/libtbbmalloc.so* /usr/local/lib/
-          # Fix permissions
-          sudo chmod 755 /usr/local/lib/libtbbmalloc.so*
+          sudo cp build/*_release/libtbb*.so.2 /usr/local/lib/
+          sudo ln -sf /usr/local/lib/libtbb.so.2 /usr/local/lib/libtbb.so
+          sudo ln -sf /usr/local/lib/libtbbmalloc.so.2 /usr/local/lib/libtbbmalloc.so
 
       - name: List TBB include directory
         run: ls -l /usr/local/include/tbb
