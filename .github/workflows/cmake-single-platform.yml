@@ -34,6 +34,8 @@ jobs:
           sudo cp -r include/tbb /usr/local/include/
           sudo cp build/linux_*_release/libtbb.so* /usr/local/lib/
           sudo cp build/linux_*_release/libtbbmalloc.so* /usr/local/lib/
+          # Fix permissions
+          sudo chmod 755 /usr/local/lib/libtbbmalloc.so*
 
       - name: List TBB include directory
         run: ls -l /usr/local/include/tbb
