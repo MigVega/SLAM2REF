@@ -18,7 +18,14 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
 
 [//]: # (#### [[ArXiv Paper &#40;better images&#41;]&#40;https://arxiv.org/abs/2408.15948&#41;] [[Paper]&#40;https://link.springer.com/article/10.1007/s41693-024-001&#41;] [[Data]&#40;https://mediatum.ub.tum.de/1743877&#41;])
 
+
+[//]: # (####  [![CMake on a single platform]&#40;https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml/badge.svg&#41;]&#40;https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml)
+
+
 <p align="center">
+    <a href="https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml">
+            <img src="https://github.com/MigVega/SLAM2REF/actions/workflows/cmake-single-platform.yml/badge.svg" alt="Build">
+        </a>
     <a href="https://arxiv.org/abs/2408.15948"><b>ArXiv Paper (better images)</b></a> •
     <a href="https://link.springer.com/article/10.1007/s41693-024-00126-w"><b>Paper (nicer to read)</b></a> •
     <a href="https://mediatum.ub.tum.de/1743877"><b>Data</b></a>
@@ -72,6 +79,11 @@ The following image presents a very brief overview of how the method works.
 
 
 ## How to Run the Code
+
+### Compatibility Note
+
+This project has been tested only on **Ubuntu 20.04**. While it may potentially run on **Ubuntu 22.04**, it would require the latest version of GTSAM and adjustments in the `BetweenFactorWithAnchoring` class to be compatible.
+
 
 ### 0. Installing the Dependencies
 - We recommend to install GTSAM, Open 3D from source. Moreover you need Open CV and PCL.
