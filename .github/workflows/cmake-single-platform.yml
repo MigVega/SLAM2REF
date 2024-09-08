@@ -9,9 +9,10 @@ on:
 env:
   BUILD_TYPE: Release
   GTSAM_DIR: /usr/local/lib/cmake/GTSAM
-  TBB_INCLUDE_DIR: /usr/include/tbb
-  TBB_LIBRARY_DIR: /usr/lib/x86_64-linux-gnu
-  TBB_LIBS: "/usr/lib/x86_64-linux-gnu/libtbb.so;/usr/lib/x86_64-linux-gnu/libtbbmalloc.so"
+  TBB_VERSION: 2020.3
+  TBB_INCLUDE_DIR: /usr/local/include
+  TBB_LIBRARY_DIR: /usr/local/lib
+  TBB_LIBS: "/usr/local/lib/libtbb.so;/usr/local/lib/libtbbmalloc.so"
 
 jobs:
   build:
@@ -21,14 +22,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev libyaml-cpp-dev libtbb-dev
+      - name: Install dependencies without TBB
+        run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev libyaml-cpp-dev
+
+      - name: Download and install Intel TBB 2020
+        run: |
+          wget https://github.com/oneapi-src/oneTBB/archive/v${{ env.TBB_VERSION }}.tar.gz
+          tar -xzf v${{ env.TBB_VERSION }}.tar.gz
+          cd oneTBB-${{ env.TBB_VERSION }}
+          make -j$(nproc)
+          sudo cp -r include/tbb /usr/local/include/
+          sudo cp build/linux_*_release/libtbb.so* /usr/local/lib/
+          sudo cp build/linux_*_release/libtbbmalloc.so* /usr/local/lib/
 
       - name: List TBB include directory
-        run: ls -l /usr/include/tbb
+        run: ls -l /usr/local/include/tbb
 
       - name: List TBB library directory
-        run: ls -l /usr/lib/x86_64-linux-gnu | grep tbb
+        run: ls -l /usr/local/lib | grep tbb
 
       - name: Install GTSAM from source
         run: |
