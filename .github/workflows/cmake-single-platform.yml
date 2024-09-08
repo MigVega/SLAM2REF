@@ -9,10 +9,6 @@ on:
 env:
   BUILD_TYPE: Release
   GTSAM_DIR: /usr/local/lib/cmake/GTSAM
-  TBB_VERSION: 2020.3
-  TBB_INCLUDE_DIR: /usr/local/include
-  TBB_LIBRARY_DIR: /usr/local/lib
-  TBB_LIBS: "/usr/local/lib/libtbb.so;/usr/local/lib/libtbbmalloc.so"
 
 jobs:
   build:
@@ -22,25 +18,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies without TBB
-        run: sudo apt-get update && sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev libyaml-cpp-dev
-
-      - name: Download and install Intel TBB 2020
+      - name: Install dependencies
         run: |
-          wget https://github.com/oneapi-src/oneTBB/archive/v${{ env.TBB_VERSION }}.tar.gz
-          tar -xzf v${{ env.TBB_VERSION }}.tar.gz
-          cd oneTBB-${{ env.TBB_VERSION }}
-          make -j$(nproc)
-          sudo cp -r include/tbb /usr/local/include/
-          sudo cp build/*_release/libtbb*.so.2 /usr/local/lib/
-          sudo ln -sf /usr/local/lib/libtbb.so.2 /usr/local/lib/libtbb.so
-          sudo ln -sf /usr/local/lib/libtbbmalloc.so.2 /usr/local/lib/libtbbmalloc.so
+          sudo apt-get update
+          sudo apt-get install -y cmake make gcc g++ libboost-all-dev libpcl-dev libopencv-dev libyaml-cpp-dev intel-mkl tbb
 
       - name: List TBB include directory
-        run: ls -l /usr/local/include/tbb
+        run: ls -l /usr/include/tbb
 
       - name: List TBB library directory
-        run: ls -l /usr/local/lib | grep tbb
+        run: ls -l /usr/lib/x86_64-linux-gnu | grep tbb
 
       - name: Install GTSAM from source
         run: |
@@ -48,7 +35,7 @@ jobs:
           cd gtsam
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DTBB_INCLUDE_DIR=${{ env.TBB_INCLUDE_DIR }} -DTBB_LIBRARY_DIR=${{ env.TBB_LIBRARY_DIR }} -DTBB_LIBS=${{ env.TBB_LIBS }}
+          cmake .. -DCMAKE_BUILD_TYPE=Release
           make -j$(nproc)
           sudo make install
 
@@ -84,7 +71,7 @@ jobs:
         run: echo "Open3D_DIR=$HOME/open3d_install/lib/cmake/Open3D" >> $GITHUB_ENV
 
       - name: Configure CMake for the project
-        run: cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DGTSAM_DIR=${{ env.GTSAM_DIR }} -DOpen3D_DIR=${{ env.Open3D_DIR }} -DTBB_INCLUDE_DIR=${{ env.TBB_INCLUDE_DIR }} -DTBB_LIBRARY_DIR=${{ env.TBB_LIBRARY_DIR }} -DTBB_LIBS=${{ env.TBB_LIBS }}
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DGTSAM_DIR=${{ env.GTSAM_DIR }} -DOpen3D_DIR=${{ env.Open3D_DIR }}
 
       - name: Build the project
         run: cmake --build build --config ${{ env.BUILD_TYPE }}
