@@ -108,10 +108,10 @@ namespace gtsam {
 
 /** vector of errors */
 gtsam::Vector evaluateError(
-        const gtsam::Pose3& p1,
-        const gtsam::Pose3& p2,
-        const gtsam::Pose3& anchor_p1,
-        const gtsam::Pose3& anchor_p2,
+        const VALUE& p1,
+        const VALUE& p2,
+        const VALUE& anchor_p1,
+        const VALUE& anchor_p2,
         boost::optional<gtsam::Matrix&> H1 = boost::none,
         boost::optional<gtsam::Matrix&> H2 = boost::none,
         boost::optional<gtsam::Matrix&> anchor_H1 = boost::none,
