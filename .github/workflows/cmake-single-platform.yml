@@ -1,4 +1,4 @@
-name: CMake on a single platform
+name: Build
 
 on:
   push:
