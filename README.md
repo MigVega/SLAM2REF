@@ -1,11 +1,11 @@
 
 <h1 align="center" style="border-bottom: none">
     <b>
-        ⭐️ SLAM2REF ⭐️ <br>
+        ⭐️ <img src=doc/imgs/SLAM2REF_LOGO7.png alt="SLAM2REF Logo" width="40%" /> ⭐️ <br>
+	      Long-Term Mapping with 3D LiDAR and Reference Map Integration 
     </b>
-      Long-Term Mapping with 3D LiDAR and Reference Map Integration
 
-</h1>
+ </h1>
 
 [//]: # (      Advancing Long-Term Mapping with 3D LiDAR and Reference Map Integration for Precise 6-DoF Trajectory Estimation and Map Extension  )
 
