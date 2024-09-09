@@ -74,7 +74,7 @@ SLAM2REF uses pose-graph multi-session anchoring to align your LiDAR data with a
 - SLAM2REF additionally allows the retrieval of 6-DoF poses with an accuracy of up to 3 cm given an accurate TLS point cloud as a reference map (this map should be accurate, at least regarding the position of permanent elements such as walls and columns).
 
 The following image presents a very brief overview of how the method works.
-<p align="center"><img src="doc/imgs/Gtihub_overview__.png" alt="SLAM2REF Github - Overview" width="80%" /></p>
+<p align="center"><img src="doc/imgs/Gtihub_overview__.png" alt="SLAM2REF Github - Overview" width="85%" /></p>
 
 
 
@@ -92,7 +92,7 @@ The commands to install all dependencies can be found in the file inside `.githu
 
 
 ### 1. Cloning and Building the Project
--Run the following in a terminal to clone the repository.
+- Run the following in a terminal to clone the repository.
 
 ```bash
     cd
@@ -101,7 +101,16 @@ The commands to install all dependencies can be found in the file inside `.githu
     git clone https://github.com/MigVega/SLAM2REF .
   ```
 
-- When building the project, use the `-j 5` flag to limit the process to five threads. This helps prevent the project from exiting prematurely.
+- When building the project, use the `-j 5` flag to limit the process to five threads. This helps prevent the project from exiting prematurely. You can do that with a IDE or with the following comands in a terminal.
+
+```bash
+    cd
+    cd Repos/00.SLAM2REF/code
+    mkdir build
+    cd build
+    cmake ..
+    make -j 5
+```
 
 ### 2. Setting Up Directory Structure
 
@@ -162,7 +171,7 @@ The commands to install all dependencies can be found in the file inside `.githu
 
 Your support helps us continue improving the project. Thank you for being part of our community!
 
-<p align="center"><img src="doc/imgs/github_start_only.gif" alt="SLAM2REF Github - how to star the repo" width="50%" /></p>
+<p align="center"><img src="doc/imgs/github_start_only.gif" alt="SLAM2REF Github - how to star the repo" width="65%" /></p>
 
 
 ## License
