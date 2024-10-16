@@ -59,19 +59,16 @@ Align and correct your LiDAR-based SLAM data with a reference map or a previous 
 
 [//]: # (  </a>)
 <!-- TO ADD -->
-<!-- ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/rayguan97/crossloc3d/.github%2Fworkflows%2Fpython-package-conda.yml)-->
 <!-- ![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dataset/slam2ref)(https://paperswithcode.com/sota)-->
-<!-- ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)) -->
-
 
 
 
 ## What is SLAM2REF?
 SLAM2REF uses pose-graph multi-session anchoring to align your LiDAR data with a reference map or with another session, allowing precise 6-DoF pose retrieval and map extension.
 - This project is an extension of [LT-SLAM](https://github.com/gisbi-kim/lt-mapper/tree/main), which implements a custom GTSAM factor for anchoring (see BetweenFactorWithAnchoring.h). However, this project is completely ROS-independent. This is also an extension of the [BIM-SLAM](http://www.iaarc.org/publications/2023_proceedings_of_the_40th_isarc_chennai_india/bim_slam-integrating_bim_models_in_multi_session_slam_for_lifelong_mapping_using_3d_lidar.html) project, for which a [video](https://youtu.be/5WgPRRijI4Y) explanation is available.
-- Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition, which is an extension of [Scan Context](https://github.com/gisbi-kim/SC-A-LOAM).
-- Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles, this one is a particular implementation of the [Open 3D GICP](https://github.com/isl-org/Open3D/pull/3181).
-- SLAM2REF additionally allows the retrieval of 6-DoF poses with an accuracy of up to 3 cm given an accurate TLS point cloud as a reference map (this map should be accurate, at least regarding the position of permanent elements such as walls and columns).
+- Moreover, we have implemented a novel Indoor Scan Context Descriptor for fast place recognition, which is an extension of [Scan Context](https://github.com/gisbi-kim/SC-A-LOAM). You can use this for fast global localization in indoor environments.
+- Also, a novel YawGICP algorithm for robust point cloud registration with varying mostly yaw angles, this one is a particular implementation of the [Open 3D GICP](https://github.com/isl-org/Open3D/pull/3181). You can use this to register your sequential scans.
+- SLAM2REF additionally allows the retrieval of 6-DoF poses with an accuracy of up to 3 cm given an accurate TLS point cloud as a reference map (this map should be accurate, at least regarding the position of permanent elements such as walls and columns). These poses are precise enough to serve as **ground truth** for evaluating state-of-the-art SLAM, localization, or pose estimation algorithms. Additionally, they can be used to retrieve an accurately updated and aligned map with the reference map, for example, to update a digital twin of a facility.
 
 The following image presents a very brief overview of how the method works.
 <p align="center"><img src="doc/imgs/Gtihub_overview__.png" alt="SLAM2REF Github - Overview" width="85%" /></p>
@@ -86,7 +83,7 @@ This project has been tested only on **Ubuntu 20.04**. While it may potentially 
 
 
 ### 0. Installing the Dependencies
-- We recommend to install GTSAM, Open 3D from source. Moreover you need Open CV and PCL.
+- We recommend installing GTSAM and Open 3D from the source. Moreover, you will need Open CV and PCL.
  
 The commands to install all dependencies can be found in the file inside `.github/workflows`.
 
