@@ -174,7 +174,7 @@ Your support helps us continue improving the project. Thank you for being part o
 ## License
 
 - **Academic Use:** The code is available under the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html) for academic purposes.
-- **Commercial Use:** For any commercial applications, please contact the author at `mavtarturo@hotmail.com` to discuss licensing options.
+- **Commercial Use:** For any commercial applications, please contact the author to discuss licensing options.
 
 ## Citation
 
